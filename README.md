@@ -32,20 +32,20 @@ A comparison of **online, part-time, fully asynchronous doctoral programs** (DBA
 
 | # | Program | University | Country | Christian? | Length | Capstone type | Tuition (orig.) | ≈ CAD | Status |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | DBA (17 tracks) | Liberty | USA | Yes (evangelical) | ~3 yr · 60 cr | Applied Doctoral Research Project | US$40,500 | CA$55,500 | ⚠¹ |
-| 2 | EdD — Christian Leadership | Liberty | USA | Yes (evangelical) | 54 cr | Dissertation-in-praxis | US$36,450 | CA$49,900 | ✔ |
-| 2b | EdD — general / C&I | Liberty | USA | Yes (evangelical) | ~3.5 yr · 54 cr | Applied Doctoral Research project | US$36,450 | CA$49,900 | ⚠² |
-| 3 | DMin (15+ tracks) | Liberty | USA | Yes (evangelical) | ~3 yr · 30 cr | Thesis project *or* Portfolio | US$12,300³ | CA$16,900 | ✔ low $ |
-| 4 | DBA | Touro Univ. Worldwide | USA | No (Jewish) | ~2 yr · 48 cr | Applied doctoral project | US$33,600 | CA$46,000 | ✔ best async |
-| 5 | DBA — Applied Project track | Trevecca Nazarene | USA | Yes (Nazarene) | 32 mo · 60 cr | Applied Doctoral Project | US$41,940 +fees | CA$57,500+ | ⚠⁴ |
-| 6 | DMin | Grace Theological Sem. | USA | Yes (Grace Brethren) | ~3 yr · 30 cr | Final doctoral project | US$19,680 | CA$27,000 | ✔ |
-| 7 | DMin | Knox Theological Sem. | USA | Yes (Reformed) | 3–5 yr · 30 cr | Major Project (6 cr) | US$21,600 | CA$29,600 | ✔ |
-| 8 | DMin (2 conc.) | Regent | USA | Yes (Pentecostal) | ~5–6 yr · 36 cr | D.Min. research project | US$24,120 +fees | CA$33,000 | ⚠⁵ |
-| 9 | DMin | Carey Theological College | Canada | Yes (Baptist) | 3 yr · 30 cr | Doctoral Thesis (ministry) | CA$13,500 | CA$13,500 | ⚠⁶ best CA |
-| 10 | Professional Practice DProf (Business) | Middlesex | UK | No | ~4 yr | Work-based project + viva | not published | request⁷ | ✔⁷ |
-| 11 | Executive DBA | Aston | UK | No | 4–6 yr | Applied thesis + 2 vivas | £39,000 | CA$67,900 | ⚠⁸ |
-| 12 | PhD by Published Work | Westminster | UK | No | 1–2 yr | Thesis-by-publication | verify⁹ | request | ⚠⁹ |
-| 13 | PhD by Published Work | York St John | UK | No | varies | Thesis-by-publication | verify⁹ | request | ⚠⁹ |
+| 1 | [DBA (17 tracks)](https://www.liberty.edu/online/business/doctoral/dba/) | Liberty | USA | Yes (evangelical) | ~3 yr · 60 cr | Applied Doctoral Research Project | US$40,500 | CA$55,500 | ⚠¹ |
+| 2 | [EdD — Christian Leadership](https://www.liberty.edu/online/divinity/doctoral/christian-leadership/) | Liberty | USA | Yes (evangelical) | 54 cr | Dissertation-in-praxis | US$36,450 | CA$49,900 | ✔ |
+| 2b | [EdD — general / C&I](https://www.liberty.edu/online/education/doctoral/education/) | Liberty | USA | Yes (evangelical) | ~3.5 yr · 54 cr | Applied Doctoral Research project | US$36,450 | CA$49,900 | ⚠² |
+| 3 | [DMin (15+ tracks)](https://www.liberty.edu/online/divinity/doctoral/dmin/) | Liberty | USA | Yes (evangelical) | ~3 yr · 30 cr | Thesis project *or* Portfolio | US$12,300³ | CA$16,900 | ✔ low $ |
+| 4 | [DBA](https://www.tuw.edu/academics/business/doctor-of-business-administration/) | Touro Univ. Worldwide | USA | No (Jewish) | ~2 yr · 48 cr | Applied doctoral project | US$33,600 | CA$46,000 | ✔ best async |
+| 5 | [DBA — Applied Project track](https://www.trevecca.edu/academics/program/doctor-of-business-administration) | Trevecca Nazarene | USA | Yes (Nazarene) | 32 mo · 60 cr | Applied Doctoral Project | US$41,940 +fees | CA$57,500+ | ⚠⁴ |
+| 6 | [DMin](https://seminary.grace.edu/programs/doctor-ministry-in-leadership-online/) | Grace Theological Sem. | USA | Yes (Grace Brethren) | ~3 yr · 30 cr | Final doctoral project | US$19,680 | CA$27,000 | ✔ |
+| 7 | [DMin](https://www.knoxseminary.edu/programs/dmin) | Knox Theological Sem. | USA | Yes (Reformed) | 3–5 yr · 30 cr | Major Project (6 cr) | US$21,600 | CA$29,600 | ✔ |
+| 8 | [DMin (2 conc.)](https://www.regent.edu/program/doctor-of-ministry-dmin/) | Regent | USA | Yes (Pentecostal) | ~5–6 yr · 36 cr | D.Min. research project | US$24,120 +fees | CA$33,000 | ⚠⁵ |
+| 9 | [DMin](https://www.carey-edu.ca/degrees/doctor-of-ministry) | Carey Theological College | Canada | Yes (Baptist) | 3 yr · 30 cr | Doctoral Thesis (ministry) | CA$13,500 | CA$13,500 | ⚠⁶ best CA |
+| 10 | [Professional Practice DProf (Business)](https://www.mdx.ac.uk/courses/postgraduate/professional-practice-dprof--business/) | Middlesex | UK | No | ~4 yr | Work-based project + viva | not published | request⁷ | ✔⁷ |
+| 11 | [Executive DBA](https://online.aston.ac.uk/online-courses/business/executive-doctor-of-business-administration-dba) | Aston | UK | No | 4–6 yr | Applied thesis + 2 vivas | £39,000 | CA$67,900 | ⚠⁸ |
+| 12 | [PhD by Published Work](https://www.westminster.ac.uk/study/postgraduate/research-degrees/mode-of-study/phd-by-published-work) | Westminster | UK | No | 1–2 yr | Thesis-by-publication | verify⁹ | request | ⚠⁹ |
+| 13 | [PhD by Published Work](https://www.yorksj.ac.uk/courses/postgraduate/phds-and-doctorates/phd-by-published-work/) | York St John | UK | No | varies | Thesis-by-publication | verify⁹ | request | ⚠⁹ |
 
 **Notes**
 
