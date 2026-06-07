@@ -4,6 +4,10 @@ A comparison of **online, part-time, fully asynchronous doctoral programs** (DBA
 
 > **Research date:** June 2026. Every program below was checked against official university pages (cited). The three filters that eliminate most programs are: **(a) fully asynchronous** (no required live class sessions), **(b) no residency / no campus visits**, and **(c) an applied capstone, not a 5-chapter dissertation**.
 
+> 🔎 **Want to sort & filter the table?**
+> - **[programs.csv](programs.csv)** — GitHub renders this with a built-in **search box + click-to-sort columns** (open the file and try it).
+> - **Interactive web page** (`docs/index.html`) — search, per-column filters (Country / Christian / Status) and sortable columns. Once GitHub Pages is enabled it will be live at **https://jordanr123.github.io/DoctorEducation/** (see _Enabling the interactive page_ at the bottom).
+
 ---
 
 ## Screening criteria (all six required)
@@ -152,3 +156,21 @@ All program facts were verified against official university/seminary pages (`.ed
 - **American College of Education** — commonly treated as **for-profit** (status ambiguous); **excluded** per the screen unless you confirm directly.
 
 > *Verification scope: a dedicated secular/public EdD sweep was completed and folded in above. The clean EdD pass remains **Liberty**; UWF and Maryville are the strongest secular candidates but require direct confirmation that they are fully asynchronous and residency-free before relying on them.*
+
+---
+
+## Sortable / filterable views
+
+Plain Markdown tables (above) are static. For interactive sorting and filtering:
+
+- **`programs.csv`** — GitHub automatically renders CSV files in an interactive grid with a **"Search this file" box** and **click-to-sort column headers**. Just open [programs.csv](programs.csv) in the GitHub web UI. You can also open it in Excel / Google Sheets / Numbers for full filtering.
+- **`docs/index.html`** — a self-contained interactive page (DataTables) with a global search box, **dropdown filters for Country / Christian / Status**, and sortable columns, plus the capstone reference table.
+
+### Enabling the interactive page (one-time, ~30 seconds)
+
+1. On GitHub, go to the repo **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **Deploy from a branch**.
+3. Set **Branch = `main`** and **Folder = `/docs`**, then **Save**.
+4. Wait ~1 minute; the page goes live at **https://jordanr123.github.io/DoctorEducation/**.
+
+(The page loads its table library from a CDN, so it needs an internet connection. You can also just open `docs/index.html` locally in a browser without enabling Pages.)
