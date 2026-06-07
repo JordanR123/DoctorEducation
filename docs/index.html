@@ -18,7 +18,7 @@
   .sub { color: var(--muted); margin: 0 0 20px; font-size: .9rem; }
   .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 28px; overflow-x: auto; }
   h2 { font-size: 1.15rem; margin: 4px 0 12px; }
-  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; align-items: flex-end; }
   .filters label { font-size: .8rem; color: var(--muted); display: flex; flex-direction: column; gap: 3px; }
   select, input[type=search] { background: #0d1117; color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font-size: .85rem; }
   table.dataTable { width: 100% !important; border-collapse: collapse; font-size: .82rem; }
@@ -31,11 +31,12 @@
   .b-warn { background: rgba(210,153,34,.15); color: #e3b341; border: 1px solid rgba(210,153,34,.4); }
   .b-info { background: rgba(88,166,255,.12); color: #79c0ff; border: 1px solid rgba(88,166,255,.4); }
   .notes { color: var(--muted); font-size: .78rem; }
+  .rig { display:inline-block; min-width: 28px; text-align:center; font-weight:700; border-radius:6px; padding:2px 6px; font-variant-numeric: tabular-nums; }
   .dataTables_filter input, .dataTables_length select { background:#0d1117; color:var(--text); border:1px solid var(--border); border-radius:6px; }
   .dataTables_info, .dataTables_paginate, .dataTables_length label, .dataTables_filter label { color: var(--muted) !important; font-size:.8rem; }
   .paginate_button { color: var(--accent) !important; }
   footer { color: var(--muted); font-size: .78rem; margin-top: 8px; }
-  .pill { font-variant-numeric: tabular-nums; }
+  .legend { color: var(--muted); font-size:.78rem; margin: 0 0 10px; }
 </style>
 </head>
 <body>
@@ -45,12 +46,16 @@
 
 <div class="card">
   <h2>Qualifying programs</h2>
+  <p class="legend"><strong>Capstone rigor (1–10)</strong> = an informed estimate of how heavy/long the culminating project is, where 1 is lightest and 10 ≈ a full traditional PhD dissertation. Default sort is by this column (lightest → heaviest). <em>*Thesis-by-publication scores low for the in-programme work (~15k-word commentary) but presupposes a pre-existing body of published work — effective bar ≈ 10.</em></p>
   <div class="filters">
     <label>Country
       <select id="f-country"><option value="">All</option></select>
     </label>
     <label>Christian?
       <select id="f-christian"><option value="">All</option></select>
+    </label>
+    <label>Capstone tier
+      <select id="f-tier"><option value="">All</option></select>
     </label>
     <label>Status
       <select id="f-status"><option value="">All</option></select>
@@ -60,13 +65,13 @@
     <thead>
       <tr>
         <th>Program</th><th>University</th><th>Country</th><th>Christian?</th>
-        <th>Length</th><th>Capstone type</th><th>Tuition (orig.)</th>
-        <th>≈ CAD</th><th>Status</th><th>Notes</th>
+        <th>Length</th><th>Capstone type</th><th>Capstone tier</th><th>Rigor</th>
+        <th>Tuition (orig.)</th><th>≈ CAD</th><th>Status</th><th>Notes</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
-  <footer>Status badges: <span class="badge b-ok">Confirmed</span> key facts verified on official pages ·
+  <footer>Status: <span class="badge b-ok">Confirmed</span> verified on official pages ·
   <span class="badge b-warn">Verify</span> qualified pass — confirm the noted point ·
   <span class="badge b-info">Likely</span> advertised but not fully confirmed.</footer>
 </div>
@@ -75,62 +80,70 @@
   <h2>Capstone / culminating-project types vs. a traditional PhD dissertation</h2>
   <table id="capstones" class="display">
     <thead>
-      <tr><th>Capstone type</th><th>What it is</th><th>Length / structure</th><th>Originality requirement</th><th>Defense</th><th>vs. traditional dissertation</th></tr>
+      <tr><th>Capstone type</th><th>Rigor</th><th>What it is</th><th>Length / structure</th><th>Originality requirement</th><th>Defense</th><th>vs. traditional dissertation</th></tr>
     </thead>
     <tbody></tbody>
   </table>
 </div>
 
 <script>
-// ---- Program data ----
+// Columns: 0 Program,1 University,2 Country,3 Christian,4 Length,5 Capstone type,6 Capstone tier,7 Rigor,8 Tuition,9 CAD,10 Status,11 Notes
 const PROGRAMS = [
-  ["DBA (17 tracks)","Liberty University","USA","Yes (evangelical)","~3 yr · 60 cr","Applied Doctoral Research Project","US$40,500","CA$55,500","Verify","Generic site disclaimer re possible scheduled meetings/travel/login; DBA pages say no required intensives & colloquium optional — confirm your specialization has zero required-login courses."],
-  ["EdD — Christian Leadership","Liberty University","USA","Yes (evangelical)","54 cr","Dissertation-in-praxis","US$36,450","CA$49,900","Confirmed","100% online, no set login times, no required intensives."],
-  ["EdD — general / C&I","Liberty University","USA","Yes (evangelical)","~3.5 yr · 54 cr","Applied Doctoral Research project","US$36,450","CA$49,900","Verify","Pick a no-required-intensives track. Capstone is manuscript-style (proposal, Ch 1–3, defense) — applied dissertation, more dissertation-like than a portfolio."],
-  ["DMin (15+ tracks)","Liberty University","USA","Yes (evangelical)","~3 yr · 30 cr","Thesis project or Portfolio","US$12,300","CA$16,900","Confirmed","Async, no required intensives. $410/cr PT; block-rate billing may change total. Lowest-cost US option."],
-  ["DBA","Touro University Worldwide","USA","No (Jewish)","~2 yr · 48 cr","Applied doctoral project","US$33,600","CA$46,000","Confirmed","Cleanest async confirmation: 100% online, no residency, no fixed class times. Lowest-cost DBA."],
-  ["DBA — Applied Project track","Trevecca Nazarene University","USA","Yes (Nazarene)","32 mo · 60 cr","Applied Doctoral Project","US$41,940 + fees","CA$57,500+","Verify","No residency, never step on campus. Some faculty offer Zoom/weekly videos — confirm optional/recorded. +~$300/course fees."],
-  ["DMin","Grace Theological Seminary","USA","Yes (Grace Brethren)","~3 yr · 30 cr","Final doctoral project","US$19,680","CA$27,000","Confirmed","All seminars online, no campus requirement; asynchronous (optional limited live). Avoid the campus-based Hybrid Church track."],
-  ["DMin","Knox Theological Seminary","USA","Yes (Reformed)","3–5 yr · 30 cr","DM999 Major Project (6 cr)","US$21,600","CA$29,600","Confirmed","May be taken entirely online; campus intensives optional; asynchronous (self-paced)."],
-  ["DMin (2 conc.)","Regent University","USA","Yes (Pentecostal)","~5–6 yr · 36 cr","D.Min. research / ministry project","US$24,120 + fees","CA$33,000","Verify","ATS-approved online, no residency, but async not explicitly stated — confirm. Regent's DSL fails on required virtual residencies. +~$750/term."],
-  ["DMin","Carey Theological College","Canada","Yes (Baptist)","3 yr · 30 cr","Doctoral Thesis (ministry)","CA$13,500","CA$13,500","Verify","Fully online, no residency, incl. graduation; self-paced 10-wk (async implied). Capstone labeled 'thesis' — confirm applied/ministry. Best Canada-based & lowest cost."],
-  ["Professional Practice DProf (Business)","Middlesex University","UK","No","~4 yr","Work-based project + viva","Not published","Request","Confirmed","Strongest work-based, non-dissertation fit. No residencies/summer schools/block teaching; only an online induction day. Quote via professionals@mdx.ac.uk."],
-  ["Executive DBA","Aston University","UK","No","4–6 yr","Applied thesis + 2 vivas","£39,000","CA$67,900","Verify","Fully async, no compulsory live lectures. Output is a thesis (borderline, but applied). Triple-accredited."],
-  ["PhD by Published Work","University of Westminster","UK","No","1–2 yr","Thesis-by-publication","Verify","Request","Verify","Requires an existing body of published work (retrospective). Async/online + Canadian eligibility not fully verified."],
-  ["PhD by Published Work","York St John University","UK","No","Varies","Thesis-by-publication","Verify","Request","Verify","Requires existing publications. Good fallback if already publishing."],
-  ["DMin","Midwestern Baptist Theological Seminary","USA","Yes (Southern Baptist)","Varies","DMin doctoral project (unconfirmed)","Verify","Verify","Likely","Global Campus advertises zero residency + asynchronous, but handbook/tuition page not directly readable. Confirm capstone & tuition."]
+  ["DMin","Knox Theological Seminary","USA","Yes (Reformed)","3–5 yr · 30 cr","DM999 Major Project (6 cr)","Doctoral project",4,"US$21,600","CA$29,600","Confirmed","Smallest credit footprint (6 cr); single contained ministry/applied project + one oral defense. Entirely online; intensives optional; asynchronous."],
+  ["PhD by Published Work","University of Westminster","UK","No","1–2 yr","Thesis-by-publication (portfolio + 15k commentary + viva)","Thesis-by-publication*",4,"Verify","Request","Verify","In-programme work is a short ~15k-word commentary + viva, BUT requires a pre-existing body of peer-reviewed publications — effective scholarly bar ≈ PhD (10). Async/online + Canadian eligibility not fully verified."],
+  ["PhD by Published Work","York St John University","UK","No","Varies","Thesis-by-publication (portfolio + critical review + viva)","Thesis-by-publication*",4,"Verify","Request","Verify","Short critical-review commentary + viva, but presupposes an existing body of published work (PhD-equivalent overall). Good fallback if already publishing."],
+  ["DMin (15+ tracks)","Liberty University","USA","Yes (evangelical)","~3 yr · 30 cr","Thesis project or Portfolio (15 cr)","Portfolio / thesis project",5,"US$12,300","CA$16,900","Confirmed","Two options: portfolio (lightest, ~rigor 4) or a 15-cr thesis project (~rigor 6). Async, no required intensives. Lowest-cost US option."],
+  ["DMin","Grace Theological Seminary","USA","Yes (Grace Brethren)","~3 yr · 30 cr","Final doctoral project","Ministry project",5,"US$19,680","CA$27,000","Confirmed","Applied ministry project (ATS-standard) + defense. All seminars online, asynchronous; avoid the campus-based Hybrid Church track."],
+  ["DMin (2 conc.)","Regent University","USA","Yes (Pentecostal)","~5–6 yr · 36 cr","D.Min. research / ministry project","Ministry project",5,"US$24,120 + fees","CA$33,000","Verify","Applied ministry research project + defense. ATS-approved online no residency, but async not explicitly stated — confirm. Regent's DSL fails on required virtual residencies."],
+  ["DBA — Applied Project track","Trevecca Nazarene University","USA","Yes (Nazarene)","32 mo · 60 cr","Applied Doctoral Project","Applied project",6,"US$41,940 + fees","CA$57,500+","Verify","Organizational applied project with data + defense. No residency; some faculty offer Zoom/weekly videos — confirm optional/recorded."],
+  ["DBA","Touro University Worldwide","USA","No (Jewish)","~2 yr · 48 cr","Applied doctoral research project","Applied project",6,"US$33,600","CA$46,000","Confirmed","Proposal → IRB → data → defense; real empirical data. Cleanest async confirmation; lowest-cost DBA."],
+  ["EdD — Christian Leadership","Liberty University","USA","Yes (evangelical)","54 cr","Dissertation-in-praxis","Applied dissertation",7,"US$36,450","CA$49,900","Confirmed","Two-phase design/implement/assess praxis study + defense. 100% online, no set login times, no required intensives."],
+  ["DBA (17 tracks)","Liberty University","USA","Yes (evangelical)","~3 yr · 60 cr","Applied Doctoral Research Project","Applied research project",7,"US$40,500","CA$55,500","Verify","Multi-stage original applied research, manuscript-style + defense. Confirm your specialization has zero required-login courses."],
+  ["DMin","Carey Theological College","Canada","Yes (Baptist)","3 yr · 30 cr","Doctoral Thesis (ministry)","Thesis (ministry)",7,"CA$13,500","CA$13,500","Verify","Labeled a thesis (3-cr proposal + 9-cr thesis) — more thesis-like than a project. Fully online, no residency. Confirm it counts as applied/ministry. Best Canada-based & lowest cost."],
+  ["EdD — general / C&I","Liberty University","USA","Yes (evangelical)","~3.5 yr · 54 cr","Applied Doctoral Research project (manuscript)","Applied dissertation",8,"US$36,450","CA$49,900","Verify","Structured like a dissertation (proposal, Ch 1–3, chair, defense) — the most dissertation-like applied capstone here. Pick a no-required-intensives track."],
+  ["Professional Practice DProf (Business)","Middlesex University","UK","No","~4 yr","Work-based project + viva","Near-dissertation",8,"Not published","Request","Confirmed","PhD-equivalent rigor; multi-year work-based research thesis + viva. No residencies/summer schools; only an online induction day. Quote via professionals@mdx.ac.uk."],
+  ["Executive DBA","Aston University","UK","No","4–6 yr","Applied thesis + 2 vivas","Doctoral thesis (near-PhD)",9,"£39,000","CA$67,900","Verify","Full ~50–60k-word doctoral thesis + two separate vivas — closest to a traditional dissertation in rigor & length. Fully async; triple-accredited."],
+  ["DMin","Midwestern Baptist Theological Seminary","USA","Yes (Southern Baptist)","Varies","DMin doctoral project (unconfirmed)","Doctoral project (unconfirmed)","?","Verify","Verify","Likely","Advertises zero residency + asynchronous, but handbook/tuition page not directly readable. Confirm capstone & tuition."]
 ];
 
+// Capstone reference: [type, rigor, what, length/structure, originality, defense, vs dissertation]
 const CAPSTONES = [
-  ["Traditional 5-chapter dissertation (baseline)","Original empirical research filling a gap in scholarly literature to create new theory. The PhD standard.","5 chapters; ~150–300+ pp / UK 60–80k words.","Original contribution to theoretical knowledge.","Yes — formal 2–3 hr defense/viva.","The benchmark. Most theory-oriented; still seen as the gold standard for research-academic careers."],
-  ["Dissertation-in-Practice (CPED / EdD)","Scholarly work addressing a complex Problem of Practice in the candidate's profession.","Often keeps the 5-chapter shape but narrower & more applied; may be improvement-science report, evaluation, or portfolio.","Advances knowledge in the field of practice; judged by impact on practice.","Yes — proposal + final oral defense.","Comparable rigor, more applied. Equal but practice-oriented, not lesser."],
-  ["Applied Doctoral Project / Doctoral Study","Identify a real problem → methodology → project → findings → a practical, implementable solution.","Structured, problem-driven (proposal → data → solution).","A practical/applied solution demonstrating research competence.","Yes — proposal + final oral defense.","Same demonstrated competence, applied vs. theoretical. Similar rigor."],
-  ["Problem-of-Practice / Action-Research project","Investigate & solve a problem in your own workplace/practice (action research, improvement science, evaluation).","Built around iterative PDSA-style cycles documenting intervention & results.","Original contextual contribution, not generalizable theory.","Yes — proposal + oral defense.","Rigorous but practice-embedded. Valued for organizational impact."],
-  ["Ministry Project / Thesis (DMin)","A major designed-and-implemented ministry project in the candidate's area of practice.","Written report of the project; governed by ATS standards.","A credible formal research element contributing to ministry practice.","Yes — ~1 hr final oral defense.","Applied ministry capstone, professionally rigorous within ATS; applied rather than theoretical."],
-  ["Portfolio of practice / Portfolio thesis","Curated collection of professional/public works + a critical commentary theorizing their significance.","Portfolio + 25,000–45,000-word critical commentary.","Doctoral-level original contribution through the body of practice itself.","Yes — viva before a chaired panel.","Treated as the professional equivalent to the PhD, same assessment criteria. Equal rigor via accumulated practice."],
-  ["Thesis by Publication / PhD by Published Work","Doctoral recognition of a pre-existing body of peer-reviewed publications + a synthesizing commentary.","Published outputs + integrating commentary (~10–20k words); some routes ~2 yrs.","Publication = peer-validated evidence of original, significant research.","Yes — viva on originality/rigour/contribution.","Equivalent in standard to a traditional PhD; evidenced retrospectively. Needs an existing publication record."],
-  ["Doctoral consulting / business project (DBA)","Applied, action-research/consulting investigation of a real organizational problem → actionable management knowledge.","DBA thesis (UK ~50–60k words) or portfolio of applied projects; often a qualifying-report milestone.","Original contribution to professional practice (and often applied theory).","Yes — viva(s).","Per AACSB, not less rigorous — differently oriented (PhD theoretical; DBA applied)."]
+  ["Portfolio of practice / Portfolio thesis",4,"Curated collection of professional/public works + a critical commentary theorizing their significance.","Portfolio + 25,000–45,000-word critical commentary.","Doctoral-level original contribution through the body of practice itself.","Yes — viva before a chaired panel.","Treated as the professional equivalent to the PhD, same assessment criteria. Equal rigor via accumulated practice."],
+  ["Thesis by Publication / PhD by Published Work",4,"Doctoral recognition of a pre-existing body of peer-reviewed publications + a synthesizing commentary.","Published outputs + integrating commentary (~10–20k words); some routes ~2 yrs.","Publication = peer-validated evidence of original, significant research.","Yes — viva on originality/rigour/contribution.","Equivalent in standard to a traditional PhD; evidenced retrospectively. Needs an existing publication record (so total effort is PhD-scale)."],
+  ["Ministry Project / Thesis (DMin)",5,"A major designed-and-implemented ministry project in the candidate's area of practice.","Written report of the project; governed by ATS standards.","A credible formal research element contributing to ministry practice.","Yes — ~1 hr final oral defense.","Applied ministry capstone, professionally rigorous within ATS; applied rather than theoretical."],
+  ["Problem-of-Practice / Action-Research project",6,"Investigate & solve a problem in your own workplace/practice (action research, improvement science, evaluation).","Iterative PDSA-style cycles documenting intervention & results.","Original contextual contribution, not generalizable theory.","Yes — proposal + oral defense.","Rigorous but practice-embedded. Valued for organizational impact."],
+  ["Applied Doctoral Project / Doctoral Study",6,"Identify a real problem → methodology → project → findings → a practical, implementable solution.","Structured, problem-driven (proposal → data → solution).","A practical/applied solution demonstrating research competence.","Yes — proposal + final oral defense.","Same demonstrated competence, applied vs. theoretical. Similar rigor."],
+  ["Dissertation-in-Practice (CPED / EdD)",7,"Scholarly work addressing a complex Problem of Practice in the candidate's profession.","Often keeps the 5-chapter shape but narrower & more applied.","Advances knowledge in the field of practice; judged by impact on practice.","Yes — proposal + final oral defense.","Comparable rigor, more applied. Equal but practice-oriented, not lesser."],
+  ["Doctoral consulting / business project (DBA)",8,"Applied, action-research/consulting investigation of a real organizational problem → actionable knowledge.","DBA thesis (UK ~50–60k words) or portfolio of applied projects; often a qualifying-report milestone.","Original contribution to professional practice (and often applied theory).","Yes — viva(s).","Per AACSB, not less rigorous — differently oriented (PhD theoretical; DBA applied)."],
+  ["Traditional 5-chapter dissertation (baseline)",10,"Original empirical research filling a gap in scholarly literature to create new theory. The PhD standard.","5 chapters; ~150–300+ pp / UK 60–80k words.","Original contribution to theoretical knowledge.","Yes — formal 2–3 hr defense/viva.","The benchmark. Most theory-oriented; still seen as the gold standard for research-academic careers."]
 ];
 
 function statusBadge(s){
   const cls = s==="Confirmed" ? "b-ok" : s==="Likely" ? "b-info" : "b-warn";
   return '<span class="badge '+cls+'">'+s+'</span>';
 }
+function rigorCell(v){
+  if(v==="?" || v===null || v==="") return '<span class="rig" style="background:#21262d;color:#9da7b3">?</span>';
+  const n = Number(v);
+  // green (low) → amber → red (high)
+  const hue = Math.max(0, 120 - Math.round((n-1)/9*120));
+  return '<span class="rig" style="background:hsla('+hue+',60%,40%,.22);color:hsl('+hue+',70%,65%)">'+v+'</span>';
+}
 
 $(function(){
   const table = $('#programs').DataTable({
     data: PROGRAMS,
     pageLength: 25,
-    order: [[7,'asc']],
+    order: [[7,'asc']],            // default: sort by Capstone rigor, lightest first
     columnDefs: [
-      { targets: 8, render: (d)=>statusBadge(d) },
-      { targets: 9, render: (d)=>'<span class="notes">'+d+'</span>' }
+      { targets: 7, render: (d,t)=> t==='display' ? rigorCell(d) : (d==='?'? -1 : d) },  // numeric sort; "?" sinks to bottom on asc
+      { targets: 10, render: (d,t)=> t==='display' ? statusBadge(d) : d },
+      { targets: 11, render: (d,t)=> t==='display' ? '<span class="notes">'+d+'</span>' : d }
     ]
   });
 
-  // Build dropdown filters from the data
   function fill(id, colIdx){
-    const vals = [...new Set(PROGRAMS.map(r=>r[colIdx]))].sort();
+    const vals = [...new Set(PROGRAMS.map(r=>String(r[colIdx])))].sort();
     const sel = document.getElementById(id);
     vals.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
     sel.addEventListener('change', ()=>{
@@ -139,14 +152,15 @@ $(function(){
   }
   fill('f-country', 2);
   fill('f-christian', 3);
-  fill('f-status', 8);
+  fill('f-tier', 6);
+  fill('f-status', 10);
 
   $('#capstones').DataTable({
     data: CAPSTONES,
     paging: false,
-    searching: true,
     info: false,
-    order: [[0,'asc']]
+    order: [[1,'asc']],
+    columnDefs: [ { targets: 1, render: (d,t)=> t==='display' ? rigorCell(d) : d } ]
   });
 });
 </script>

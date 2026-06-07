@@ -63,6 +63,38 @@ A comparison of **online, part-time, fully asynchronous doctoral programs** (DBA
 
 ---
 
+## Programs ranked by capstone rigor & length
+
+"Capstone type" alone doesn't tell you how hard the final project is — a 15-credit portfolio and a 60,000-word doctoral thesis are both "capstones." This ranking gives each program a **Capstone Rigor & Length Index (1–10)** so you can sort by *workload*, where **1 = lightest** and **10 ≈ a full traditional PhD dissertation**.
+
+**How the index is built** (an informed estimate, not an official metric — combining five factors):
+1. **Written output length** — pages / word count of the final document.
+2. **Empirical burden** — does it require real data collection (IRB, fieldwork) or is it a synthesis/portfolio?
+3. **Originality bar** — contribution to *professional practice* (lower) vs. *generalizable knowledge* (higher).
+4. **Credit weight** — credits/time formally allocated to the capstone.
+5. **Defenses/vivas** — number and formality of oral examinations.
+
+| Rigor | Program | University | Capstone | Tier | Why it sits here |
+|:---:|---|---|---|---|---|
+| **4** | DMin | Knox Theological Sem. | DM999 Major Project (6 cr) | Doctoral project | Smallest credit footprint; one contained applied project + a single defense. |
+| **4\*** | PhD by Published Work | Westminster / York St John | Thesis-by-publication | Portfolio | In-programme work is a short ~15k-word commentary + viva — **but** \*presupposes a pre-existing body of peer-reviewed publications, so the *effective* scholarly bar is PhD-equivalent (10). |
+| **5** | DMin | Liberty | Thesis project *or* Portfolio (15 cr) | Project / portfolio | Portfolio route is light (~4); the 15-cr thesis-project route is heavier (~6). |
+| **5** | DMin | Grace / Regent | Ministry / doctoral project | Ministry project | ATS-standard applied ministry project + oral defense. |
+| **6** | DBA | Touro Worldwide / Trevecca | Applied doctoral project | Applied project | Real empirical data (proposal → IRB → data → defense); applied solution. |
+| **7** | EdD — Christian Leadership | Liberty | Dissertation-in-praxis | Applied dissertation | Two-phase design/implement/assess study + defense. |
+| **7** | DBA | Liberty | Applied Doctoral Research Project | Applied research project | Multi-stage original applied research, manuscript-style + defense. |
+| **7** | DMin | Carey Theological College | Doctoral Thesis (ministry) | Thesis (ministry) | Labeled a *thesis* (proposal + 9-cr thesis) — more thesis-like than a project. |
+| **8** | EdD — general / C&I | Liberty | Applied Doctoral Research project | Applied dissertation | Structured like a dissertation (proposal, Ch 1–3, chair, defense) — the most dissertation-like applied capstone here. |
+| **8** | Professional Practice DProf | Middlesex | Work-based research project + viva | Near-dissertation | PhD-equivalent rigor; multi-year work-based research thesis + viva. |
+| **9** | Executive DBA | Aston | Applied thesis + two vivas | Doctoral thesis (near-PhD) | Full ~50–60k-word doctoral thesis + **two** vivas — closest to a traditional dissertation. |
+| **10** | *(baseline)* | — | Traditional 5-chapter dissertation | Dissertation | The excluded benchmark, shown for reference. |
+
+> **\* The thesis-by-publication caveat is the important one.** It scores **4 for the work you do inside the programme** (a short critical commentary + viva), which is why it ranks as "light." But you can only enrol if you *already* hold a substantial body of published, peer-reviewed research — accumulating that is itself a doctorate-scale effort. So if you have the publications, it's the *fastest/lightest* route; if you don't, it's effectively the *hardest*. Sort by the number, but read this note.
+
+*Interactive versions:* the **[CSV](programs.csv)** and the **[web page](docs/index.html)** both include the `Capstone tier` and `Capstone rigor (1–10)` columns, and the web page is **sorted by rigor (lightest → heaviest) by default** with a Capstone-tier dropdown filter.
+
+---
+
 ## Near-misses (and exactly why they fail)
 
 These are commonly recommended online — but each breaks at least one hard rule. Worth knowing so you aren't misled by ranking blogs (several were mislabeled as "no dissertation / fully async" when the official catalog says otherwise).
